@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
-      width: 100vw;
-      height: 100vh;
       margin: 0;
       padding: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
       background: #002366;
       color: #fff;
@@ -17,7 +17,7 @@
       font-size: 1.2em;
       user-select: none;
     }
-    .bsod {
+    #bsod {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
@@ -29,10 +29,6 @@
       justify-content: center;
       flex-direction: column;
       z-index: 9999;
-    }
-    .bsod-content {
-      max-width: 600px;
-      text-align: left;
     }
     .bsod-title {
       font-size: 3em;
@@ -49,13 +45,13 @@
     }
   </style>
   <script>
-    // Disable keyboard shortcuts
+    // Prevent most keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       e.preventDefault();
       return false;
     }, true);
 
-    // Disable right-click
+    // Prevent right-click
     document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
       return false;
@@ -73,6 +69,11 @@
       return false;
     }, true);
 
+    // Try to prevent navigating away
+    window.onbeforeunload = function() {
+      return "Your PC ran into a problem and needs to restart.";
+    };
+
     // Try to keep window focused
     window.onblur = function() {
       window.focus();
@@ -80,20 +81,18 @@
   </script>
 </head>
 <body>
-  <div class="bsod">
-    <div class="bsod-content">
-      <div class="bsod-title">:(</div>
-      <div class="bsod-error">
-        Your PC ran into a problem and needs to restart.<br>
-        We're just collecting some error info, and then we'll restart for you.<br>
-        <span style="color:#cceeff;">If you'd like to know more, you can search online later for this error: FAKE_BSOD_ERROR</span>
-      </div>
-      <div class="bsod-info">
-        <br>
-        <span>0% complete</span>
-        <br><br>
-        <span>For more information about this issue, visit https://www.windows.com/stopcode</span>
-      </div>
+  <div id="bsod">
+    <div class="bsod-title">:(</div>
+    <div class="bsod-error">
+      Your PC ran into a problem and needs to restart.<br>
+      We're just collecting some error info, and then we'll restart for you.<br>
+      <span style="color:#cceeff;">If you'd like to know more, you can search online later for this error: FAKE_BSOD_ERROR</span>
+    </div>
+    <div class="bsod-info">
+      <br>
+      <span>0% complete</span>
+      <br><br>
+      <span>For more information about this issue, visit https://www.windows.com/stopcode</span>
     </div>
   </div>
 </body>
