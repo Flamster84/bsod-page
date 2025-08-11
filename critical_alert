@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blue Screen of Death</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #002366;
+      color: #fff;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 1.2em;
+      user-select: none;
+    }
+    .bsod {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #002366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    .bsod-content {
+      max-width: 600px;
+      text-align: left;
+    }
+    .bsod-title {
+      font-size: 3em;
+      font-weight: bold;
+      margin-bottom: 1em;
+    }
+    .bsod-error {
+      margin-top: 2em;
+      font-size: 1.3em;
+    }
+    .bsod-info {
+      margin-top: 1em;
+      font-size: 1em;
+    }
+  </style>
+  <script>
+    // Disable keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      e.preventDefault();
+      return false;
+    }, true);
+
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    }, true);
+
+    // Prevent drag/drop
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    }, true);
+
+    // Prevent text selection
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+      return false;
+    }, true);
+
+    // Try to keep window focused
+    window.onblur = function() {
+      window.focus();
+    };
+  </script>
+</head>
+<body>
+  <div class="bsod">
+    <div class="bsod-content">
+      <div class="bsod-title">:(</div>
+      <div class="bsod-error">
+        Your PC ran into a problem and needs to restart.<br>
+        We're just collecting some error info, and then we'll restart for you.<br>
+        <span style="color:#cceeff;">If you'd like to know more, you can search online later for this error: FAKE_BSOD_ERROR</span>
+      </div>
+      <div class="bsod-info">
+        <br>
+        <span>0% complete</span>
+        <br><br>
+        <span>For more information about this issue, visit https://www.windows.com/stopcode</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
