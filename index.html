@@ -1,65 +1,146 @@
-<!doctype html>
-<html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Page</title>
-    <title>System Error - Critical</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <main>
-    <div id="bsod" class="bsod-overlay">
-      <div class="bsod-content">
-        <div class="bsod-header">
-          <h1 class="bsod-title">SYSTEM ERROR</h1>
-          <p class="bsod-subtitle">A critical system error has occurred</p>
-        </div>
-        
-        <div class="bsod-error">
-          <div class="error-code">0x0000007E</div>
-          <div class="error-description">WIN32K.SYS - IRQL_NOT_LESS_OR_EQUAL</div>
-          <div class="error-details">
-            <p>An attempt was made to access a memory location that was not properly allocated, 
-              or a kernel-mode driver tried to perform an invalid operation on an object that 
-              had already been released.</p>
-          </div>
-        </div>
-        
-        <div class="bsod-contact">
-          <h2>Technical Support Contact</h2>
-          <p>If this problem occurs repeatedly, please contact technical support:</p>
-          <p class="support-phone">1-800-555-ERROR</p>
-          <p>Reference: 2023-11-15-1432-A1B2C3D4</p>
-        </div>
-        
-        <div class="bsod-footer">
-          <p>This error has been logged. Please restart your computer to continue.</p>
-        </div>
-      </div>
-    </div>
-    
-    <main class="content">
-      <h1 class="title">Welcome to my site!</h1>
-      <p class="description">
-        Get started by editing <code class="code">index.html</code>.
-      </p>
-      <section class="grid">
-        <a href="https://www.w3schools.com/html/" class="card">
-          <h2>Learn HTML &rarr;</h2>
-          <p>Find tutorials on W3Schools to learn HTML.</p>
-        </a>
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/HTML"
-          class="card"
-        >
-          <h2>HTML Documentation &rarr;</h2>
-          <p>Explore the MDN Web Docs for in-depth HTML documentation.</p>
-        </a>
-      </section>
-    </main>
-    
-    <script type="module" src="script.js"></script>
-  </body>
-</html>
+```javascript:popup.js
+/**
+ * Hard Popup System - Fully blocks UI and plays loud alarm
+ * Matches reference design with red/black urgent alert style
+ */
+class HardPopup {
+  constructor(imageSrc, audioElement, autoPlayAudio = true) {
+    this.imageSrc = imageSrc;
+    this.audio = audioElement;
+    this.autoPlayAudio = autoPlayAudio;
+    this.overlay = null;
+    this.isShowing = false;
+    this.eventHandlers = {};
+  }
+
+  show() {
+    if (this.isShowing) return;
+
+    this.isShowing = true;
+
+    // Create main overlay
+    this.overlay = document.createElement('div');
+    this.overlay.classList.add('popup-overlay');
+
+    // Build popup content
+    const content = document.createElement('div');
+    content.classList.add('popup-content');
+
+    // Header
+    const header = document.createElement('div');
+    header.classList.add('popup-header');
+    header.innerHTML = `
+      URGENT SYSTEM ALERT
+      <span>Immediate Attention Required</span>
+    `;
+
+    // Image
+    const img = document.createElement('img');
+    img.src = this.imageSrc;
+    img.alt = "Critical Alert Visual";
+    img.classList.add('popup-image');
+    img.loading = "eager";
+
+    // Footer
+    const footer = document.createElement('div');
+    footer.classList.add('popup-footer');
+    footer.innerHTML = `
+      Please acknowledge the alert.
+      <strong>Do not close this popup.</strong>
+    `;
+
+    // Assemble content
+    content.appendChild(header);
+    content.appendChild(img);
+    content.appendChild(footer);
+    this.overlay.appendChild(content);
+
+    // Insert into DOM
+    document.getElementById('popup-container').appendChild(this.overlay);
+
+    // Play alarm sound
+    if (this.autoPlayAudio) {
+      this.playAlarm();
+    }
+
+    // Apply blocking behavior
+    this.enableBlocking();
+  }
+
+  playAlarm() {
+    // Reset audio and play at full volume
+    this.audio.currentTime = 0;
+    this.audio.volume = 1.0;
+    this.audio.loop = true;
+
+    this.audio.play().catch((err) => {
+      console.error("Failed to play alarm sound:", err.message);
+      alert("Urgent alert shown, but alarm sound could not be played.");
+    });
+  }
+
+  enableBlocking() {
+    // Prevent Escape key from closing
+    const keyHandler = (e) => {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        e.preventDefault();
+      }
+    };
+
+    // Prevent clicks outside from interacting
+    const clickHandler = (e) => {
+      if (!this.overlay.contains(e.target)) {
+        e.stopPropagation();
+      }
+    };
+
+    // Capture events early to block them
+    document.addEventListener('keydown', keyHandler, { capture: true });
+    document.addEventListener('click', clickHandler, { capture: true });
+
+    // Store for cleanup (if needed later)
+    this.eventHandlers.keyHandler = keyHandler;
+    this.eventHandlers.clickHandler = clickHandler;
+  }
+
+  /**
+   * Updates the popup image dynamically (e.g., after new data)
+   * @param {string} newSrc - New image URL
+   */
+  updateImage(newSrc) {
+    const img = this.overlay.querySelector('.popup-image');
+    if (img) {
+      img.src = newSrc;
+    }
+  }
+
+  /**
+   * Restarts the alarm sound manually
+   */
+  restartAlarm() {
+    this.audio.currentTime = 0;
+    this.audio.play().catch(console.warn);
+  }
+}
+
+// Initialize after DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+  const triggerBtn = document.getElementById('trigger');
+  const alarmSound = document.getElementById('alarm-sound');
+
+  // Create the popup instance with reference image
+  const urgentPopup = new HardPopup(
+    'https://example.com/alert-images/bsod-warning.jpg', // Replace with actual URL
+    alarmSound
+  );
+
+  // Attach trigger
+  triggerBtn.addEventListener('click', () => {
+    urgentPopup.show();
+  });
+
+  // Optional: expose to window for debugging or external control
+  window.HardPopup = HardPopup;
+  window.urgentPopup = urgentPopup;
+});
+```
