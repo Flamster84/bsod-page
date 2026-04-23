@@ -1,99 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
+<html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Blue Screen of Death</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #002366;
-      color: #fff;
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-size: 1.2em;
-      user-select: none;
-    }
-    #bsod {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #002366;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-    }
-    .bsod-title {
-      font-size: 3em;
-      font-weight: bold;
-      margin-bottom: 1em;
-    }
-    .bsod-error {
-      margin-top: 2em;
-      font-size: 1.3em;
-    }
-    .bsod-info {
-      margin-top: 1em;
-      font-size: 1em;
-    }
-  </style>
-  <script>
-    // Prevent most keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-      e.preventDefault();
-      return false;
-    }, true);
-
-    // Prevent right-click
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    }, true);
-
-    // Prevent drag/drop
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-      return false;
-    }, true);
-
-    // Prevent text selection
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-      return false;
-    }, true);
-
-    // Try to prevent navigating away
-    window.onbeforeunload = function() {
-      return "Your PC ran into a problem and needs to restart.";
-    };
-
-    // Try to keep window focused
-    window.onblur = function() {
-      window.focus();
-    };
-  </script>
-</head>
-<body>
-  <div id="bsod">
-    <div class="bsod-title">:(</div>
-    <div class="bsod-error">
-      Your PC ran into a problem and needs to restart.<br>
-      We're just collecting some error info, and then we'll restart for you.<br>
-      <span style="color:#cceeff;">If you'd like to know more, you can search online later for this error: FAKE_BSOD_ERROR</span>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Page</title>
+    <title>System Error - Critical</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <main>
+    <div id="bsod" class="bsod-overlay">
+      <div class="bsod-content">
+        <div class="bsod-header">
+          <h1 class="bsod-title">SYSTEM ERROR</h1>
+          <p class="bsod-subtitle">A critical system error has occurred</p>
+        </div>
+        
+        <div class="bsod-error">
+          <div class="error-code">0x0000007E</div>
+          <div class="error-description">WIN32K.SYS - IRQL_NOT_LESS_OR_EQUAL</div>
+          <div class="error-details">
+            <p>An attempt was made to access a memory location that was not properly allocated, 
+              or a kernel-mode driver tried to perform an invalid operation on an object that 
+              had already been released.</p>
+          </div>
+        </div>
+        
+        <div class="bsod-contact">
+          <h2>Technical Support Contact</h2>
+          <p>If this problem occurs repeatedly, please contact technical support:</p>
+          <p class="support-phone">1-800-555-ERROR</p>
+          <p>Reference: 2023-11-15-1432-A1B2C3D4</p>
+        </div>
+        
+        <div class="bsod-footer">
+          <p>This error has been logged. Please restart your computer to continue.</p>
+        </div>
+      </div>
     </div>
-    <div class="bsod-info">
-      <br>
-      <span>0% complete</span>
-      <br><br>
-      <span>For more information about this issue, visit https://www.windows.com/stopcode</span>
-    </div>
-  </div>
-</body>
+    
+    <main class="content">
+      <h1 class="title">Welcome to my site!</h1>
+      <p class="description">
+        Get started by editing <code class="code">index.html</code>.
+      </p>
+      <section class="grid">
+        <a href="https://www.w3schools.com/html/" class="card">
+          <h2>Learn HTML &rarr;</h2>
+          <p>Find tutorials on W3Schools to learn HTML.</p>
+        </a>
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+          class="card"
+        >
+          <h2>HTML Documentation &rarr;</h2>
+          <p>Explore the MDN Web Docs for in-depth HTML documentation.</p>
+        </a>
+      </section>
+    </main>
+    
+    <script type="module" src="script.js"></script>
+  </body>
 </html>
