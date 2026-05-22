@@ -1,67 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Amazon Account Warning</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { text-align: center; }
-        .logo { width: 150px; }
-        .warning { background-color: #ffdddd; padding: 20px; border: 1px solid #ff9999; margin-top: 20px; }
-        .message { font-size: 18px; color: #333; }
-        .number { font-size: 24px; color: #007185; margin-top: 10px; }
-        .exit { position: fixed; bottom: 20px; right: 20px; }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.error('Failed to enter fullscreen mode:', err);
-            });
-
-            window.addEventListener('mousemove', function() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => {
-                        console.error('Failed to enter fullscreen mode:', err);
-                    });
-                }
-            });
-
-            window.addEventListener('click', function() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => {
-                        console.error('Failed to enter fullscreen mode:', err);
-                    });
-                }
-            });
-
-            document.addEventListener('fullscreenchange', function() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => {
-                        console.error('Failed to enter fullscreen mode:', err);
-                    });
-                }
-            });
-
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    document.exitFullscreen().catch(err => {
-                        console.error('Failed to exit fullscreen mode:', err);
-                    });
-                }
-            });
-        });
-    </script>
+<meta charset="UTF-8">
+<title>Windows Support Alert Simulation</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #0078D7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #005A9E;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  .popup {
+    margin-top: 80px;
+    background: #fff;
+    color: #000;
+    border: 4px solid red;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9);
+    padding: 20px;
+    text-align: center;
+    max-width: 500px;
+    animation: shake 0.5s infinite;
+  }
+  .popup h1 {
+    color: red;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .popup p {
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  .popup input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .popup button {
+    padding: 8px 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    background: red;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .popup button:hover {
+    background: darkred;
+  }
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  .bottom-section {
+    margin-top: 30px;
+    background: #005A9E;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+  }
+  .bottom-section h2 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .bottom-section p {
+    margin-bottom: 20px;
+  }
+  .bottom-section button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    background: red;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .bottom-section button:hover {
+    background: darkred;
+  }
+  .esc-cue {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    opacity: 0.6;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/200px-Amazon_logo.svg.png" alt="Amazon Logo" class="logo">
-        </div>
-        <div class="warning">
-            <div class="message">Your Amazon account has been locked due to suspicious activity on your account.</div>
-            <div class="number">Please call our toll-free number <strong>+1 000 000 0000</strong> to resolve the issue.</div>
-        </div>
-        <div class="exit">Press ESC to exit</div>
-    </div>
+  <div class="top-bar">
+    <!-- Inline Microsoft logo -->
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+      <rect width="120" height="120" x="0" y="0" fill="#FFFFFF"/>
+      <rect width="120" height="120" x="136" y="0" fill="#FFFFFF"/>
+      <rect width="120" height="120" x="0" y="136" fill="#FFFFFF"/>
+      <rect width="120" height="120" x="136" y="136" fill="#FFFFFF"/>
+    </svg>
+    <span>Toll Free: 000-000-0000</span>
+  </div>
+
+  <div class="popup">
+    <h1>VIRUS ALERT FROM MICROSOFT</h1>
+    <p>This computer is BLOCKED</p>
+    <p>Enter Windows registration key:</p>
+    <input type="text" placeholder="Enter key here">
+    <button>Submit</button>
+    <button>Cancel</button>
+    <p style="margin-top:20px; font-size:12px; opacity:0.7;">⚠️ Simulation only — harmless demo for research and awareness.</p>
+  </div>
+
+  <div class="bottom-section">
+    <h2>Windows Support Alert</h2>
+    <p>Your system has detected suspicious activity. Please contact support immediately.</p>
+    <button>Ignore Alert</button>
+    <button>Chat Now</button>
+  </div>
+
+  <div class="esc-cue">Press ESC to close this window</div>
+
+  <!-- Siren alarm sound -->
+  <audio id="alarm" autoplay loop>
+    <source src="https://actions.google.com/sounds/v1/alarms/police_siren.ogg" type="audio/ogg">
+    <source src="https://actions.google.com/sounds/v1/alarms/police_siren.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+<script>
+  // Fullscreen triggers
+  function goFull() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(()=>{});
+    }
+  }
+  window.onload = function() {
+    goFull();
+    // Play alarm
+    document.getElementById('alarm').play().catch(()=>{});
+  };
+  document.addEventListener('mousemove', goFull);
+  document.addEventListener('click', goFull);
+
+  // Prevent closing except ESC
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      window.close();
+    } else {
+      e.preventDefault();
+    }
+  });
+</script>
 </body>
 </html>
